@@ -1,0 +1,75 @@
+query tes($id: uuid!) {
+  tes(id: $id) {
+    ...tes_test
+  }
+}
+
+query test($distinct_on: [test_select_column!], $limit: Int, $offset: Int, $order_by: [test_order_by!] = { updated_at: desc }, $where: test_bool_exp) {
+  test(distinct_on: $distinct_on, limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+    ...test_test
+  }
+}
+
+mutation insertTes($test: test_insert_input!, $on_conflict: test_on_conflict) {
+  insertTes(object: $test, on_conflict: $on_conflict) {
+    ...insertTes_test
+  }
+}
+
+mutation insertTest($test: [test_insert_input!]!, $on_conflict: test_on_conflict) {
+  insertTest(objects: $test, on_conflict: $on_conflict) {
+    ...insertTest_test_mutation_response
+  }
+}
+
+mutation updateTes($test: test_set_input, $pk_columns: test_pk_columns_input!) {
+  updateTes(_set: $test, pk_columns: $pk_columns) {
+    ...updateTes_test
+  }
+}
+
+mutation updateTest($test: test_set_input, $where: test_bool_exp!) {
+  updateTest(_set: $test, where: $where) {
+    ...updateTest_test_mutation_response
+  }
+}
+
+fragment tes_test on test {
+  id
+  name
+}
+
+fragment test_test on test {
+  id
+  name
+}
+
+fragment insertTes_test on test {
+  id
+  name
+}
+
+fragment insertTest_test_mutation_response on test_mutation_response {
+  returning {
+    created_at
+    id
+    is_deleted
+    name
+    updated_at
+  }
+}
+
+fragment updateTes_test on test {
+  id
+  name
+}
+
+fragment updateTest_test_mutation_response on test_mutation_response {
+  returning {
+    created_at
+    id
+    is_deleted
+    name
+    updated_at
+  }
+}
